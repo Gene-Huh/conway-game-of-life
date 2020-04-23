@@ -22,30 +22,21 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
   name: "Controls",
-  components: {
-    FontAwesomeIcon
-  },
+  components: {FontAwesomeIcon},
   data() {
     return {
       numRows: 0,
-      numCols: 0,
-      templateGrid: []
-    };
+      numCols: 0
+    }
   },
   methods: {
     createGrid() {
-      let templateCol = [];
-      for (let i = 0; i < this.numCols; i++) {
-        templateCol.push(false);
-      }
-      for (let j = 0; j < this.numRows; j++) {
-        this.templateGrid.push(templateCol);
-      }
-      this.$emit("createGrid", this.templateGrid);
+      let templateGrid = [parseInt(this.numRows, 10), parseInt(this.numCols, 10)];
+      this.$emit("createGrid", templateGrid);
     }
   }
 };
