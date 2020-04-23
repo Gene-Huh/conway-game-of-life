@@ -1,28 +1,41 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div id="app" class="text-center">
+    <Controls @createGrid="createGrid" />
+    <div class="text-center">Generation #</div>
+    <div id="display-grid" class="text-center">
+      <div>
+        <span v-for="row in grid" :key="row">
+          <br />
+          <span v-for="col in row" :key="col">
+            <font-awesome-icon icon="square" />
+          </span>
+        </span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+import Controls from "./components/Controls.vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 export default {
   name: "App",
   components: {
-    HelloWorld
+    Controls,
+    FontAwesomeIcon
+  },
+  data() {
+    return {
+      grid: []
+    };
+  },
+  methods: {
+    createGrid(payload) {
+      this.grid = payload;
+    }
   }
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
