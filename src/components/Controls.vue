@@ -14,7 +14,7 @@
       <button>
         <font-awesome-icon icon="stop" />
       </button>
-      <button>
+      <button @click.stop="$emit('goBack')">
         <font-awesome-icon icon="undo" />
       </button>
     </div>
@@ -49,6 +49,9 @@ export default {
     },
     calcNext(){
       this.$emit("calcNext");
+    },
+    goBack(){
+      this.$emit("goBack");
     }
   }
 };

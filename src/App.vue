@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="text-center">
     <h1>Conway's Game of Life</h1>
-    <Controls @createGrid="createGrid" @calcNext="calcNext" />
+    <Controls @createGrid="createGrid" @calcNext="calcNext" @goBack="goBack" />
     <div class="text-center">Generation {{ genNum }}</div>
     <div id="display-grid" class="mx-5">
       <table class="table table-bordered" :key="genNum">
@@ -12,7 +12,6 @@
             v-for="(col, colIndex) in row"
             :key="colIndex"
           >
-            <div>{{ grid[rowIndex][colIndex] }}</div>
             <font-awesome-icon
               v-if="grid[rowIndex][colIndex] != 0"
               icon="square"
@@ -43,13 +42,14 @@ export default {
     return {
       grid: [],
       nextGen: [],
+      history: [],
       genNum: 0
     };
   },
   methods: {
     calcNext() {
       let grid = this.grid;
-
+      this.history.push(copyGen(grid));
       // let nextGenGrid = grid;
       //grid.map(row => {
       //     row.map(col => {
@@ -65,22 +65,29 @@ export default {
             // if more than 1 row, add either below or above or both
             if (row == 0) {
               nbTotal += nbCountBelow(row, col);
-              console.log("did a count below, nbTotal is " + nbTotal);
+              //  console.log("did a count below, nbTotal is " + nbTotal);
             } else if (row == grid.length - 1) {
               nbTotal += nbCountAbove(row, col);
-              console.log("did a count above, nbTotal is " + nbTotal);
+              // console.log("did a count above, nbTotal is " + nbTotal);
             } else {
-              console.log("did both below and above");
+              // console.log("did both below and above");
               nbTotal += nbCountBelow(row, col) + nbCountAbove(row, col);
             }
           }
-          console.log("nbTotal is " + nbTotal);
+          // console.log("nbTotal is " + nbTotal);
           this.nextGen[row][col] = isDeadOrAlive(row, col, nbTotal);
         }
       }
       this.grid = this.nextGen;
       this.genNum++;
 
+      function copyGen(oldArr) {
+        let newArr = [];
+        for (let i = 0; i < oldArr.length; i++) {
+          newArr[i] = [...oldArr[i]];
+        }
+        return newArr;
+      }
       function isDeadOrAlive(row, col, neighborCount) {
         let result = 0;
         if (neighborCount == 3 || (grid[row][col] > 0 && neighborCount == 2)) {
@@ -154,6 +161,13 @@ export default {
     createGrid(payload) {
       this.grid = payload;
       this.nextGen = payload;
+      this.genNum = 0;
+    },
+    goBack() {
+      if (this.genNum > 0) {
+        this.grid = this.history.pop();
+        this.genNum--;
+      }
     }
   }
 };
