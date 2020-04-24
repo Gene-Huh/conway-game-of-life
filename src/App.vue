@@ -1,18 +1,19 @@
 <template>
   <div id="app" class="text-center">
-    <Controls @createGrid="createGrid" />
-    <div class="text-center">Generation #</div>
-    <div id="display-grid">
-      <table class="table table-bordered table-sm">
-        <tr v-for="(row, rowIndex) in computedGrid" :key="rowIndex">
+    <Controls @createGrid="createGrid" @calcNext="calcNext" />
+    <div class="text-center">Generation {{genNum}}</div>
+    <div id="display-grid" class="mx-5">
+      <table class="table table-bordered" :key="genNum">
+        <tr v-for="(row, rowIndex) in grid" :key="rowIndex">
           <td
-            @click="toggleCell(rowIndex, colIndex)"
+            class="p-0"
+            @click.stop="toggleCell(rowIndex, colIndex)"
             v-for="(col, colIndex) in row"
             :key="colIndex"
           >
-          <span>{{computedGrid[rowIndex][colIndex]}}</span>
-              <font-awesome-icon icon="square"> </font-awesome-icon>
-           
+            <div>{{grid[rowIndex][colIndex]}}</div>
+            <font-awesome-icon v-if="grid[rowIndex][colIndex]!=0" icon="square" color="black"></font-awesome-icon>
+            <font-awesome-icon v-else icon="square" color="white"></font-awesome-icon>
           </td>
         </tr>
       </table>
@@ -31,10 +32,93 @@ export default {
   },
   data() {
     return {
-      grid: []
+      grid: [],
+      nextGen: [],
+      genNum: 0
     };
   },
   methods: {
+    calcNext() {
+      let grid = this.grid;
+
+      // let nextGenGrid = grid;
+      //grid.map(row => {
+      //     row.map(col => {
+      for (let row = 0; row < grid.length; row++) {
+        for (let col = 0; col < grid[0].length; col++) {
+          let nbTotal = 0;
+          if (grid[row].length > 1) {
+            // add X neighbor count if at least 2 cols
+            nbTotal += nbCountX(row, col);
+          }
+          if (grid.length > 1) {
+            // if more than 1 row, add either below or above or both
+            if (row == 0) {
+              nbTotal += nbCountBelow(row, col);
+              console.log("did a count below");
+            } else if (row == grid.length - 1) {
+              nbTotal += nbCountAbove(row, col);
+              console.log("did a count above");
+            } else {
+              console.log("did both below and above");
+              nbTotal += nbCountBelow(row, col) + nbCountAbove(row, col);
+            }
+          }
+          console.log("nbTotal after is " + nbTotal);
+          //nextGenGrid[row][col] = nbTotal;
+        }
+      }
+      //this.grid = nextGenGrid;
+      this.genNum++;
+      function nbCountX(row, col) {
+        // add horizontal neighbors
+        let count = 0;
+        if (col == 0) {
+          // add left edge x neighbor
+          count += grid[row][col + 1];
+        } else if (grid[row].length - 1 == col) {
+          // add right edge x neighbor
+          count += grid[row][col - 1];
+        } else if (grid[row].length > 2) {
+          count += grid[row][col - 1] + grid[row][col + 1]; // add both neighbors if not edge and row's length > 2
+        }
+        return count;
+      }
+      function nbCountBelow(row, col) {
+        // add vertical neighbors if top row
+        let count = 0;
+        count += grid[row + 1][col]; //add lower neighbor directly underneath
+        if (col == 0) {
+          // add lower right neighbor if left corner
+          count += grid[row + 1][col + 1];
+        } else if (grid[0].length - 1 == col) {
+          // add lower left neighbor if right corner
+          count += grid[row + 1][col - 1];
+        } else if (grid[0].length > 2) {
+          // add both lower diagonal corners if not corner
+          count += grid[row + 1][col - 1] + grid[row + 1][col + 1];
+        }
+        console.log("count is " + count);
+        return count;
+      }
+      function nbCountAbove(row, col) {
+        // add vertical neighbors if bottom row
+        let count = 0;
+        count += grid[row - 1][col]; //add upper neighbor directly above
+        if (col == 0) {
+          // add upper right neighbor if left corner
+          count += grid[row - 1][col + 1];
+        } else if (grid[0].length - 1 == col) {
+          // add upper left neighbor if right corner
+          count += grid[row - 1][col - 1];
+        } else if (grid[0].length > 2) {
+          // add both upper diagonal corners if not corner
+          count += grid[row - 1][col - 1] + grid[row - 1][col + 1];
+        }
+        return count;
+      }
+    },
+
     toggleCell(rowIndex, colIndex) {
       let cellValue = this.grid[rowIndex][colIndex];
       if (cellValue == 0) {
@@ -42,29 +126,18 @@ export default {
       } else {
         this.grid[rowIndex][colIndex] = 0;
       }
-      console.log(this.computedGrid[rowIndex][colIndex]);
+      this.$forceUpdate();
     },
     createGrid(payload) {
-      let templateGrid = new Array(payload[0]);
-      for (let i = 0; i < payload[0]; i++) {
-        templateGrid[i] = new Array(payload[1]);
-        for (let j = 0; j < payload[1]; j++) {
-          templateGrid[i][j] = 0;
-        }
-      }
-      this.grid = templateGrid;
-    }
-  },
-  computed: {
-    computedGrid: {
-      cache: false,
-      get: function() {
-      return this.grid
-      }
+      this.grid = payload;
+      this.nextGen = payload;
     }
   }
 };
 </script>
 
 <style lang="scss">
+table {
+  table-layout: fixed;
+}
 </style>
