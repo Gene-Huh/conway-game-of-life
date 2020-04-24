@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="text-center">
-    <h1>Conway's Game of Life</h1>
+    <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank"><h1>Conway's Game of Life</h1></a>
     <Controls @createGrid="createGrid" @calcNext="calcNext" @goBack="goBack" />
     <div class="text-center">Generation {{ genNum }}</div>
     <div id="display-grid" class="mx-5">
@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     calcNext() {
-      let grid = this.grid;
+      let grid = copyGen(this.grid);
       this.history.push(copyGen(grid));
       // let nextGenGrid = grid;
       //grid.map(row => {
@@ -74,7 +74,7 @@ export default {
               nbTotal += nbCountBelow(row, col) + nbCountAbove(row, col);
             }
           }
-          // console.log("nbTotal is " + nbTotal);
+           console.log("nbTotal" + nbTotal +"row: " + row + "col: " + col);
           this.nextGen[row][col] = isDeadOrAlive(row, col, nbTotal);
         }
       }
