@@ -161,6 +161,7 @@ export default {
     createGrid(payload) {
       this.grid = payload;
       this.nextGen = payload;
+      this.history = [];
       this.genNum = 0;
     },
     goBack() {
