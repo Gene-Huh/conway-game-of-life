@@ -5,9 +5,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPlay, faStop, faUndo, faSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlay,
+  faStop,
+  faUndo,
+  faSquare,
+  faStepForward,
+  faStepBackward
+} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPlay, faStop, faUndo, faSquare);
+library.add(faPlay, faStop, faUndo, faSquare, faStepForward, faStepBackward);
 
 Vue.use(BootstrapVue);
 Vue.config.productionTip = false;

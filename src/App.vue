@@ -1,6 +1,8 @@
 <template>
   <div id="app" class="text-center">
-    <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank"><h1>Conway's Game of Life</h1></a>
+    <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">
+      <h1>Conway's Game of Life</h1>
+    </a>
     <Controls @createGrid="createGrid" @calcNext="calcNext" @goBack="goBack" />
     <div class="text-center">Generation {{ genNum }}</div>
     <div id="display-grid" class="mx-5">
@@ -12,16 +14,8 @@
             v-for="(col, colIndex) in row"
             :key="colIndex"
           >
-            <font-awesome-icon
-              v-if="grid[rowIndex][colIndex] != 0"
-              icon="square"
-              color="black"
-            ></font-awesome-icon>
-            <font-awesome-icon
-              v-else
-              icon="square"
-              color="white"
-            ></font-awesome-icon>
+            <font-awesome-icon v-if="grid[rowIndex][colIndex] != 0" icon="square" color="black"></font-awesome-icon>
+            <font-awesome-icon v-else icon="square" color="white"></font-awesome-icon>
           </td>
         </tr>
       </table>
@@ -74,7 +68,7 @@ export default {
               nbTotal += nbCountBelow(row, col) + nbCountAbove(row, col);
             }
           }
-           console.log("nbTotal" + nbTotal +"row: " + row + "col: " + col);
+          console.log("nbTotal" + nbTotal + "row: " + row + "col: " + col);
           this.nextGen[row][col] = isDeadOrAlive(row, col, nbTotal);
         }
       }

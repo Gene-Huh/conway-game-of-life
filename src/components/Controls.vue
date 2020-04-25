@@ -8,14 +8,17 @@
       <button @click.stop="createGrid">Create Grid</button>
     </div>
     <div id="control-buttons">
-      <button @click.stop="$emit('calcNext')">
+      <button @click.stop="goBack">
+        <font-awesome-icon icon="step-backward" />
+      </button>
+      <button @click.stop="calcNext">
+        <font-awesome-icon icon="step-forward" />
+      </button>
+      <button @click.stop="play">
         <font-awesome-icon icon="play" />
       </button>
-      <button>
+      <button @click.stop="stop">
         <font-awesome-icon icon="stop" />
-      </button>
-      <button @click.stop="$emit('goBack')">
-        <font-awesome-icon icon="undo" />
       </button>
     </div>
   </div>
@@ -30,7 +33,9 @@ export default {
   data() {
     return {
       numRows: 0,
-      numCols: 0
+      numCols: 0,
+      interval: 1000,
+      playLooper: null
     };
   },
   methods: {
@@ -47,16 +52,26 @@ export default {
       }
       this.$emit("createGrid", templateGrid);
     },
-    calcNext(){
+    calcNext() {
       this.$emit("calcNext");
     },
-    goBack(){
+    goBack() {
       this.$emit("goBack");
+    },
+    play() {
+      this.playLooper = setInterval(() => {
+        this.$emit("calcNext");
+      }, this.interval);
+    },
+    stop() {
+      clearInterval(this.playLooper);
     }
+  },
+  beforeDestroy() {
+    clearInterval(this.playLooper);
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
