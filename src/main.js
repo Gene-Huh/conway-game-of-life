@@ -11,10 +11,21 @@ import {
   faUndo,
   faSquare,
   faStepForward,
-  faStepBackward
+  faStepBackward,
+  faFastForward,
+  faFastBackward
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPlay, faStop, faUndo, faSquare, faStepForward, faStepBackward);
+library.add(
+  faPlay,
+  faStop,
+  faUndo,
+  faSquare,
+  faStepForward,
+  faStepBackward,
+  faFastForward,
+  faFastBackward
+);
 
 Vue.use(BootstrapVue);
 Vue.config.productionTip = false;

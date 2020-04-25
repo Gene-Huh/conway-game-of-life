@@ -7,19 +7,31 @@
       <input type="text" id="columns" v-model="numCols" />
       <button @click.stop="createGrid">Create Grid</button>
     </div>
+
     <div id="control-buttons">
-      <button @click.stop="goBack">
-        <font-awesome-icon icon="step-backward" />
-      </button>
-      <button @click.stop="calcNext">
-        <font-awesome-icon icon="step-forward" />
-      </button>
-      <button @click.stop="play">
-        <font-awesome-icon icon="play" />
-      </button>
-      <button @click.stop="stop">
-        <font-awesome-icon icon="stop" />
-      </button>
+      <div class="btn-group">
+        <button @click.stop="goBack">
+          <font-awesome-icon icon="step-backward" />
+        </button>
+        <button @click.stop="calcNext">
+          <font-awesome-icon icon="step-forward" />
+        </button>
+      </div>
+
+      <div class="btn-group">
+        <button @click.stop="speedDown">
+          <font-awesome-icon icon="fast-backward" />
+        </button>
+        <button @click.stop="play">
+          <font-awesome-icon icon="play" />
+        </button>
+        <button @click.stop="speedUp">
+          <font-awesome-icon icon="fast-forward" />
+        </button>
+        <button @click.stop="stop">
+          <font-awesome-icon icon="stop" />
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -65,6 +77,26 @@ export default {
     },
     stop() {
       clearInterval(this.playLooper);
+    },
+    speedUp() {
+      if (this.interval >= 500) {
+        this.interval /= 2;
+        this.$forceUpdate();
+        clearInterval(this.playLooper);
+        this.playLooper = setInterval(() => {
+          this.$emit("calcNext");
+        }, this.interval);
+      }
+    },
+    speedDown() {
+      if (this.interval <= 2000) {
+        this.interval *= 2;
+        this.$forceUpdate();
+        clearInterval(this.playLooper);
+        this.playLooper = setInterval(() => {
+          this.$emit("calcNext");
+        }, this.interval);
+      }
     }
   },
   beforeDestroy() {

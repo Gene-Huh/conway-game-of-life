@@ -43,32 +43,27 @@ export default {
   methods: {
     calcNext() {
       let grid = copyGen(this.grid);
-      this.history.push(copyGen(grid));
-      // let nextGenGrid = grid;
-      //grid.map(row => {
-      //     row.map(col => {
+      if (this.history.length < 100) {
+        this.history.push(copyGen(grid));
+      }
       for (let row = 0; row < grid.length; row++) {
         for (let col = 0; col < grid[0].length; col++) {
           let nbTotal = 0;
           if (grid[row].length > 1) {
             // add X neighbor count if at least 2 cols
             nbTotal += nbCountX(row, col);
-            //console.log("Horizontal neighbor count is " + nbTotal);
           }
           if (grid.length > 1) {
             // if more than 1 row, add either below or above or both
             if (row == 0) {
               nbTotal += nbCountBelow(row, col);
-              //  console.log("did a count below, nbTotal is " + nbTotal);
             } else if (row == grid.length - 1) {
               nbTotal += nbCountAbove(row, col);
-              // console.log("did a count above, nbTotal is " + nbTotal);
             } else {
               // console.log("did both below and above");
               nbTotal += nbCountBelow(row, col) + nbCountAbove(row, col);
             }
           }
-          console.log("nbTotal" + nbTotal + "row: " + row + "col: " + col);
           this.nextGen[row][col] = isDeadOrAlive(row, col, nbTotal);
         }
       }
