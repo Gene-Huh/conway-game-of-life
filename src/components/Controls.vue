@@ -1,35 +1,39 @@
 <template>
   <div id="controls">
     <div id="size-choice">
-      <label for="rows">Input Rows</label>
-      <input type="text" id="rows" v-model="numRows" />
-      <label for="columns">Input Columns</label>
-      <input type="text" id="columns" v-model="numCols" />
+      <div class="d-inline-block mr-5">
+        <label for="rows">Input Rows</label>
+        <input class="cols-1" type="text" id="rows" v-model="numRows" />
+      </div>
+      <div class="d-inline-block">
+        <label for="columns">Input Columns</label>
+        <input type="text" id="columns" v-model="numCols" />
+      </div>
       <button @click.stop="createGrid">Create Grid</button>
     </div>
 
     <div id="control-buttons">
-      <div class="btn-group">
+      <div class="btn-group d-block">
         <button @click.stop="goBack">
-          <font-awesome-icon icon="step-backward" />
+          <font-awesome-icon icon="step-backward" />Previous
         </button>
         <button @click.stop="calcNext">
-          <font-awesome-icon icon="step-forward" />
+          <font-awesome-icon icon="step-forward" />Next
         </button>
       </div>
 
       <div class="btn-group">
         <button @click.stop="speedDown">
-          <font-awesome-icon icon="fast-backward" />
+          <font-awesome-icon icon="fast-backward" />1/2 Speed
         </button>
         <button @click.stop="play">
-          <font-awesome-icon icon="play" />
+          <font-awesome-icon icon="play" />Play
         </button>
         <button @click.stop="speedUp">
-          <font-awesome-icon icon="fast-forward" />
+          <font-awesome-icon icon="fast-forward" />2x Speed
         </button>
         <button @click.stop="stop">
-          <font-awesome-icon icon="stop" />
+          <font-awesome-icon icon="stop" />Stop
         </button>
       </div>
     </div>
