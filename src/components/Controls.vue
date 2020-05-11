@@ -24,13 +24,13 @@
 
       <div class="btn-group">
         <button @click.stop="speedDown">
-          <font-awesome-icon icon="fast-backward" />1/2 Speed
+          <font-awesome-icon icon="fast-backward" />Slower
         </button>
         <button @click.stop="play">
           <font-awesome-icon icon="play" />Play
         </button>
         <button @click.stop="speedUp">
-          <font-awesome-icon icon="fast-forward" />2x Speed
+          <font-awesome-icon icon="fast-forward" />Faster
         </button>
         <button @click.stop="stop">
           <font-awesome-icon icon="stop" />Stop
@@ -83,7 +83,7 @@ export default {
       clearInterval(this.playLooper);
     },
     speedUp() {
-      if (this.interval >= 500) {
+      if (this.interval >= 125) {
         this.interval /= 2;
         this.$forceUpdate();
         clearInterval(this.playLooper);

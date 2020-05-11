@@ -11,15 +11,17 @@
         >Conway's Game of Life.</a>
       </p>
       <p>You start with a two dimensional grid of cells, where each cell is either alive or dead. In this version of the problem, the grid is finite, and no life can exist off the edges. When calcuating the next generation of the grid, follow these rules:</p>
-      <code>
+      
         <ol>
           <li>Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.</li>
           <li>Any live cell with more than three live neighbours dies, as if by overcrowding.</li>
           <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
           <li>Any dead cell with exactly three live neighbours becomes a live cell.</li>
         </ol>
-      </code>
+     
     </article>
+
+    <Premade @load="createGrid" />
     <Controls @createGrid="createGrid" @calcNext="calcNext" @goBack="goBack" />
     <div class="text-center">Generation {{ genNum }}</div>
     <div id="display-grid" class="mx-5">
@@ -42,11 +44,13 @@
 
 <script>
 import Controls from "./components/Controls.vue";
+import Premade from "./components/Premade.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 export default {
   name: "App",
   components: {
     Controls,
+    Premade,
     FontAwesomeIcon
   },
   data() {
