@@ -27,15 +27,15 @@
     <div id="display-grid" class="mx-5">
       <table class="table table-bordered" :key="genNum">
         <tr v-for="(row, rowIndex) in grid" :key="rowIndex">
-          <td
-            class="p-0"
+          <div
+            class="px-1 d-inline-block border"
             @click.stop="toggleCell(rowIndex, colIndex)"
             v-for="(col, colIndex) in row"
             :key="colIndex"
           >
             <font-awesome-icon v-if="grid[rowIndex][colIndex] != 0" icon="square" color="black"></font-awesome-icon>
             <font-awesome-icon v-else icon="square" color="white"></font-awesome-icon>
-          </td>
+          </div>
         </tr>
       </table>
     </div>

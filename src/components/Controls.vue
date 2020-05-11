@@ -83,7 +83,7 @@ export default {
       clearInterval(this.playLooper);
     },
     speedUp() {
-      if (this.interval >= 125) {
+      if (this.interval >= 500) {
         this.interval /= 2;
         this.$forceUpdate();
         clearInterval(this.playLooper);
