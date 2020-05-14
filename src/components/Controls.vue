@@ -13,7 +13,7 @@
     </div>
 
     <div id="control-buttons">
-      <div class="btn-group d-block">
+      <div class="btn-group d-block mb-2">
         <button @click.stop="goBack">
           <font-awesome-icon icon="step-backward" />Previous
         </button>
@@ -27,13 +27,13 @@
           <font-awesome-icon icon="fast-backward" />Slower
         </button>
         <button @click.stop="play">
-          <font-awesome-icon icon="play" />Play
+          <font-awesome-icon icon="play" color="green"/>Play
         </button>
         <button @click.stop="speedUp">
           <font-awesome-icon icon="fast-forward" />Faster
         </button>
         <button @click.stop="stop">
-          <font-awesome-icon icon="stop" />Stop
+          <font-awesome-icon icon="stop" color="red" />Stop
         </button>
       </div>
     </div>

@@ -11,33 +11,31 @@
         >Conway's Game of Life.</a>
       </p>
       <p>You start with a two dimensional grid of cells, where each cell is either alive or dead. In this version of the problem, the grid is finite, and no life can exist off the edges. When calcuating the next generation of the grid, follow these rules:</p>
-      
-        <ol>
+      <ol>
           <li>Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.</li>
           <li>Any live cell with more than three live neighbours dies, as if by overcrowding.</li>
           <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
           <li>Any dead cell with exactly three live neighbours becomes a live cell.</li>
         </ol>
-     
     </article>
-
+    <h5 class="text-info">Enter in your custom grid dimensions, click on Create Grid, and click on squares to toggle live cells. You can also select premade buttons.</h5>
     <Premade @load="createGrid" />
     <Controls @createGrid="createGrid" @calcNext="calcNext" @goBack="goBack" />
     <div class="text-center">Generation {{ genNum }}</div>
-    <div id="display-grid" class="mx-5">
-      <table class="table table-bordered" :key="genNum">
-        <tr v-for="(row, rowIndex) in grid" :key="rowIndex">
+    <div id="display-grid">
+      <div :key="genNum">
+        <div v-for="(row, rowIndex) in grid" :key="rowIndex" class="d-inline-flex">
           <div
-            class="px-1 d-inline-block border"
+            class="px-1-md d-inline-block border"
             @click.stop="toggleCell(rowIndex, colIndex)"
             v-for="(col, colIndex) in row"
             :key="colIndex"
           >
-            <font-awesome-icon v-if="grid[rowIndex][colIndex] != 0" icon="square" color="black"></font-awesome-icon>
-            <font-awesome-icon v-else icon="square" color="white"></font-awesome-icon>
+            <font-awesome-icon v-if="grid[rowIndex][colIndex] != 0" icon="square" color="black" class="icon"></font-awesome-icon>
+            <font-awesome-icon v-else icon="square" color="white" class="icon"></font-awesome-icon>
           </div>
-        </tr>
-      </table>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -185,7 +183,21 @@ export default {
 </script>
 
 <style lang="scss">
-table {
-  table-layout: fixed;
+@media screen and (max-width: 299px) {
+    .icon {
+        font-size: .5em;
+    }
+}
+
+@media screen and (min-width: 300px) and (max-width: 799px) {
+    .icon {
+        font-size: 1em;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .icon {
+        font-size: 2em;
+    }
 }
 </style>

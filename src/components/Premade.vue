@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-1">
     <h4>Preset patterns</h4>
     <button @click.stop="load(blinker)">Blinker</button>
     <button @click.stop="load(cross)">Cross</button>
