@@ -24,7 +24,7 @@
     <div class="text-center">Generation {{ genNum }}</div>
     <div id="display-grid">
       <div :key="genNum">
-        <div v-for="(row, rowIndex) in grid" :key="rowIndex" class="d-inline-flex d-block-md">
+        <div v-for="(row, rowIndex) in grid" :key="rowIndex" class="d-block-md">
           <div
             class="px-1-md d-inline-block border"
             @click.stop="toggleCell(rowIndex, colIndex)"
