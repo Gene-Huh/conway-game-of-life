@@ -185,19 +185,19 @@ export default {
 <style lang="scss">
 @media screen and (max-width: 299px) {
     .icon {
-        font-size: .5em;
+        font-size: .3em;
     }
 }
 
 @media screen and (min-width: 300px) and (max-width: 799px) {
     .icon {
-        font-size: 1em;
+        font-size: .5em;
     }
 }
 
 @media screen and (min-width: 800px) {
     .icon {
-        font-size: 2em;
+        font-size: 1em;
     }
 }
 </style>
