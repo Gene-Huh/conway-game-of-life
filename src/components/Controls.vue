@@ -27,7 +27,7 @@
           <font-awesome-icon icon="fast-backward" />Slower
         </button>
         <button @click.stop="play">
-          <font-awesome-icon icon="play" color="green"/>Play
+          <font-awesome-icon icon="play" color="green" />Play
         </button>
         <button @click.stop="speedUp">
           <font-awesome-icon icon="fast-forward" />Faster
